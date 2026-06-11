@@ -1,0 +1,23 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      APP_NAME: ${APP_NAME:-Enterprise Knowledge Base Agent}
+      DATA_DIR: ${DATA_DIR:-data}
+      UPLOADS_DIR: ${UPLOADS_DIR:-data/uploads}
+      CHROMA_DIR: ${CHROMA_DIR:-data/chroma}
+      CHROMA_COLLECTION: ${CHROMA_COLLECTION:-enterprise_kb}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-openai}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      OPENAI_EMBEDDING_MODEL: ${OPENAI_EMBEDDING_MODEL:-text-embedding-3-small}
+      OPENAI_CHAT_MODEL: ${OPENAI_CHAT_MODEL:-gpt-4o-mini}
+      HUGGINGFACE_EMBEDDING_MODEL: ${HUGGINGFACE_EMBEDDING_MODEL:-BAAI/bge-small-zh-v1.5}
+      CHUNK_SIZE: ${CHUNK_SIZE:-1000}
+      CHUNK_OVERLAP: ${CHUNK_OVERLAP:-150}
+      DEFAULT_TOP_K: ${DEFAULT_TOP_K:-5}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
