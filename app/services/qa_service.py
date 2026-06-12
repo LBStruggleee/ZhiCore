@@ -30,18 +30,13 @@ class QAService:
     def _generate_answer(self, question: str, documents: list) -> str:
         try:
             from langchain_core.prompts import ChatPromptTemplate
-            from langchain_openai import ChatOpenAI
+            from langchain_community.chat_models import ChatTongyi
 
-            kwargs: dict[str, str | float] = {
-                "model": settings.openai_chat_model,
-                "temperature": 0,
-            }
-            if settings.openai_api_key:
-                kwargs["api_key"] = settings.openai_api_key
-            if settings.openai_base_url:
-                kwargs["base_url"] = settings.openai_base_url
-
-            llm = ChatOpenAI(**kwargs)
+            llm = ChatTongyi(
+                model_name=settings.qwen_chat_model,
+                dashscope_api_key=settings.dashscope_api_key,
+                temperature=0,
+            )
             prompt = ChatPromptTemplate.from_messages(
                 [
                     ("system", SYSTEM_PROMPT),

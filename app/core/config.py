@@ -14,11 +14,10 @@ class Settings(BaseSettings):
     chroma_dir: Path = Field(default=Path("data/chroma"))
     chroma_collection: str = "enterprise_kb"
 
-    embedding_provider: str = Field(default="openai", description="openai or huggingface")
-    openai_api_key: str | None = None
-    openai_base_url: str | None = None
-    openai_embedding_model: str = "text-embedding-3-small"
-    openai_chat_model: str = "gpt-4o-mini"
+    embedding_provider: str = Field(default="dashscope", description="dashscope or huggingface")
+    dashscope_api_key: str | None = None
+    qwen_chat_model: str = "qwen-plus"
+    qwen_embedding_model: str = "text-embedding-v4"
 
     huggingface_embedding_model: str = "BAAI/bge-small-zh-v1.5"
 

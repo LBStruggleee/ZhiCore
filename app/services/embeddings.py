@@ -4,15 +4,13 @@ from app.core.config import settings
 def get_embeddings():
     provider = settings.embedding_provider.lower()
 
-    if provider == "openai":
-        from langchain_openai import OpenAIEmbeddings
+    if provider == "dashscope":
+        from langchain_community.embeddings import DashScopeEmbeddings
 
-        kwargs: dict[str, str] = {"model": settings.openai_embedding_model}
-        if settings.openai_api_key:
-            kwargs["api_key"] = settings.openai_api_key
-        if settings.openai_base_url:
-            kwargs["base_url"] = settings.openai_base_url
-        return OpenAIEmbeddings(**kwargs)
+        return DashScopeEmbeddings(
+            model=settings.qwen_embedding_model,
+            dashscope_api_key=settings.dashscope_api_key,
+        )
 
     if provider == "huggingface":
         from langchain_huggingface import HuggingFaceEmbeddings

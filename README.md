@@ -1,6 +1,6 @@
 # Enterprise Knowledge Base Agent
 
-基于 LangChain、ChromaDB 和 FastAPI 的企业知识库问答 MVP，支持 PDF 上传、解析、切分、向量索引、语义检索、RAG 问答和引用溯源。
+基于 LangChain、ChromaDB、FastAPI 和通义千问的企业知识库问答 MVP，支持 PDF 上传、解析、切分、向量索引、语义检索、RAG 问答和引用溯源。
 
 ## 功能
 
@@ -40,25 +40,25 @@ docker compose up -d --build
 http://localhost:8000
 ```
 
-## 配置
+## 千问配置
 
-默认使用 OpenAI embedding 和 chat model：
+默认使用阿里云百炼 DashScope 的通义千问模型：
 
 ```env
-EMBEDDING_PROVIDER=openai
-OPENAI_API_KEY=your_api_key
-OPENAI_EMBEDDING_MODEL=text-embedding-3-small
-OPENAI_CHAT_MODEL=gpt-4o-mini
+EMBEDDING_PROVIDER=dashscope
+DASHSCOPE_API_KEY=your_dashscope_api_key
+QWEN_EMBEDDING_MODEL=text-embedding-v4
+QWEN_CHAT_MODEL=qwen-plus
 ```
 
-也可以使用本地 HuggingFace embedding：
+也可以使用本地 HuggingFace embedding 做向量化：
 
 ```env
 EMBEDDING_PROVIDER=huggingface
 HUGGINGFACE_EMBEDDING_MODEL=BAAI/bge-small-zh-v1.5
 ```
 
-注意：问答生成仍默认调用 OpenAI Chat 模型。如果未配置或调用失败，接口会返回最相关的知识库片段作为降级结果，引用来源仍会保留。
+注意：问答生成默认调用通义千问 `QWEN_CHAT_MODEL`。如果未配置 `DASHSCOPE_API_KEY` 或模型调用失败，接口会返回最相关的知识库片段作为降级结果，引用来源仍会保留。
 
 ## API 示例
 
